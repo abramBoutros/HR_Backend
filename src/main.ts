@@ -21,8 +21,8 @@ async function bootstrap() {
 
   //Enable CORS
   app.enableCors({
-    // TODO: Add the expected origin here ex: http://localhost:3000
-    origin: '*',
+    // Will work with the local host for now
+    origin: 'http://localhost:3000',
     // TODO: Add the expected methods here ex: GET,HEAD,PUT,PATCH,POST,DELETE
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     // TODO: Add the expected headers here ex: Content-Type, Accept
