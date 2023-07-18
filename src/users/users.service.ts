@@ -50,12 +50,15 @@ export class UsersService {
 
     delete user.password;
 
-    return await this.jwtService.signAsync({
+    const jwt = await this.jwtService.signAsync({
       id: user.id,
       username: user.name,
       email: user.email,
       role: user.role,
     });
+
+    // let's return both and decide on refactoring later
+    return { jwt, user };
   }
 
   async findOneByEmail(email: string) {
@@ -93,7 +96,7 @@ export class UsersService {
   async remove(id: number) {
     const user = await this.findOneById(id);
     // delete this found user
-    await this.userRepo.delete(user);
+    await this.userRepo.delete(user.id);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

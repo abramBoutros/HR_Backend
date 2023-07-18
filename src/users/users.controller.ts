@@ -33,7 +33,8 @@ export class UsersController {
     // passthrough : true makes the nest app to send the cookie to the frontend to store
     @Res({ passthrough: true }) response: Response,
   ) {
-    const jwt = await this.usersService.signin(loginUserRequest);
+    // Destruct the user and jwt
+    const { jwt, user } = await this.usersService.signin(loginUserRequest);
 
     response.cookie('jwt', jwt, {
       httpOnly: true,
@@ -43,9 +44,8 @@ export class UsersController {
       path: '/',
     });
 
-    return {
-      message: 'successful login',
-    };
+    // send the user back to store it in the redux sto or whatever based on the architecture, maybe the local storage if needed
+    return user;
   }
 
   @Get()
